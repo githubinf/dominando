@@ -91,6 +91,17 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  const scrollToPayment = () => {
+    const element = document.getElementById('boton-pago-final');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleFinalPayment = () => {
+    window.location.href = "https://fcofrancis.pay.clickbank.net/?cbitems=5";
+  };
+
   return (
     <div className="min-h-screen bg-white selection:bg-emeraldGreen/30">
       {/* Barra de Urgencia Superior */}
@@ -99,14 +110,25 @@ export default function App() {
       </div>
 
       {/* Encabezado Editorial */}
-      <header className="py-12 px-6 text-center max-w-4xl mx-auto border-b border-gray-100">
-        <p className="text-emeraldGreen font-bold uppercase tracking-[0.3em] mb-4 text-sm md:text-base">Dominando el comercio electrónico</p>
-        <h1 className="text-5xl md:text-7xl font-bold serif-text text-deepBlue leading-[1.1] mb-6">
-          Dominando el Marketing de Afiliados
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Y cómo construir un negocio rentable desde cero con uno de los mejores sistemas de monetización.
-        </p>
+      <header className="py-12 px-6 max-w-6xl mx-auto border-b border-gray-100">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="flex-1 text-center md:text-left">
+            <p className="text-emeraldGreen font-bold uppercase tracking-[0.3em] mb-4 text-sm md:text-base">Dominando el comercio electrónico</p>
+            <h1 className="text-5xl md:text-7xl font-bold serif-text text-deepBlue leading-[1.1] mb-6">
+              Dominando el Marketing de Afiliados
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto md:mx-0 leading-relaxed">
+              Y cómo construir un negocio rentable desde cero con uno de los mejores sistemas de monetización.
+            </p>
+          </div>
+          <div className="flex-shrink-0 w-full md:w-auto flex justify-center">
+            <img 
+              src="https://i.ibb.co/wvy2hr3/dominando-el-marketing-de-afiliados.png" 
+              alt="Portada del Libro" 
+              className="w-64 md:w-80 h-auto rounded-lg shadow-2xl border border-gray-100 transform hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
       </header>
 
       {/* Hero Section */}
@@ -126,7 +148,7 @@ export default function App() {
           </p>
         </div>
         
-        <Button className="w-full md:w-auto mb-4">
+        <Button onClick={scrollToPayment} className="w-full md:w-auto mb-4">
           Obtener acceso inmediato por $9,99
         </Button>
         <p className="text-xs text-gray-400 uppercase tracking-widest mt-4">Pago 100% Seguro vía Clickbank — Encriptación SSL de 256 bits</p>
@@ -370,9 +392,14 @@ export default function App() {
             <p className="text-lg opacity-60 italic">Único pago. Acceso de por vida.</p>
           </div>
 
-          <Button className="w-full md:w-auto text-2xl py-6 px-16">
-            Obtener "Dominando el Marketing de Afiliados" por $9,99
-          </Button>
+          <div id="boton-pago-final">
+            <Button 
+              onClick={handleFinalPayment}
+              className="w-full md:w-auto text-2xl py-6 px-16"
+            >
+              Obtener "Dominando el Marketing de Afiliados" por $9,99
+            </Button>
+          </div>
 
           <p className="mt-8 text-sm opacity-50 max-w-2xl mx-auto leading-relaxed">
             Una vez alcanzadas las 500 ventas de lanzamiento, el precio regresará a su valor original de $47,00. Asegura tu copia ahora mismo.
