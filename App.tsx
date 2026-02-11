@@ -14,11 +14,11 @@ const Highlight: React.FC<{ children: React.ReactNode; color?: string }> = ({ ch
   <span className={`font-bold ${color}`}>{children}</span>
 );
 
-// Componente de botón modificado para ocultar URL al pasar el mouse (usa button en lugar de a)
+// Componente de botón que usa 'button' para evitar mostrar URL en la barra de estado
 const ButtonAction: React.FC<{ onClick?: () => void; className?: string; children: React.ReactNode }> = ({ onClick, className = "", children }) => (
   <button
     onClick={onClick}
-    className={`inline-block bg-energeticOrange hover:bg-orange-600 text-white font-bold py-5 px-10 rounded-lg shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xl text-center uppercase tracking-wider cursor-pointer border-none outline-none ${className}`}
+    className={`inline-block bg-energeticOrange hover:bg-orange-600 text-white font-bold py-5 px-10 rounded-lg shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xl text-center uppercase tracking-wider cursor-pointer border-none outline-none appearance-none ${className}`}
   >
     {children}
   </button>
@@ -65,7 +65,7 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
     <div className="border-b border-gray-200 py-6">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center text-left"
+        className="w-full flex justify-between items-center text-left appearance-none"
       >
         <span className="text-xl md:text-2xl font-bold text-deepBlue pr-4">{question}</span>
         <span className={`text-2xl transform transition-transform ${isOpen ? 'rotate-45' : 'rotate-0'}`}>+</span>
@@ -85,6 +85,7 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
 
 export default function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  // Solo este enlace se usará para el redireccionamiento de pago final
   const paymentLink = "https://fcofrancis.pay.clickbank.net/?cbitems=5";
 
   useEffect(() => {
@@ -376,7 +377,7 @@ export default function App() {
         </div>
       </Section>
 
-      {/* Cierre y CTA Final (Sección de ancla unificada) */}
+      {/* Cierre y CTA Final (Ancla unificada para la oferta final) */}
       <div className="bg-deepBlue py-24 text-white text-center">
         <Section className="max-w-4xl">
           <h2 className="text-4xl md:text-6xl serif-text mb-12 italic leading-tight">
@@ -403,17 +404,17 @@ export default function App() {
             </div>
           </div>
           
-          {/* El ancla cubre todo el bloque de precio, botón y aviso de urgencia */}
-          <div id="seccion-oferta-final" className="scroll-mt-24 p-8 rounded-2xl border border-white/5 bg-white/5">
-            <div className="mb-12">
-              <p className="text-5xl md:text-6xl font-bold text-energeticOrange mb-4">$9,99</p>
-              <p className="text-xl opacity-80 italic mb-2">Único pago. Acceso de por vida.</p>
+          {/* Este bloque es el ancla que cubre el precio, el texto de soporte y el botón de pago final */}
+          <div id="seccion-oferta-final" className="scroll-mt-24 bg-white/5 p-10 rounded-3xl border border-white/10 transition-colors hover:bg-white/10 group">
+            <div className="mb-10">
+              <p className="text-5xl md:text-7xl font-bold text-energeticOrange mb-4">$9,99</p>
+              <p className="text-xl md:text-2xl opacity-90 font-serif italic mb-2">Único pago. Acceso de por vida.</p>
             </div>
 
-            <div className="mb-8">
+            <div className="mb-10">
               <ButtonAction 
                 onClick={handlePayment}
-                className="w-full md:w-auto text-2xl py-6 px-16"
+                className="w-full md:w-auto text-2xl py-7 px-16 shadow-2xl"
               >
                 Obtener "Dominando el Marketing de Afiliados" por $9,99
               </ButtonAction>
@@ -464,4 +465,19 @@ export default function App() {
       </div>
 
       {/* Pie de Página */}
-      <footer className="bg-deepBlue py-12 px-6 text-white/
+      <footer className="bg-deepBlue py-12 px-6 text-white/40 text-sm text-center">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <p>© {currentTime.getFullYear()} Dominando el Marketing de Afiliados. Todos los derechos reservados.</p>
+          <p className="italic leading-relaxed">
+            Nota importante: Este libro es una guía educativa. Los resultados individuales varían según dedicación y factores del mercado. No garantizamos ingresos específicos. Todas las estrategias cumplen con normativas legales vigentes.
+          </p>
+          <div className="flex justify-center space-x-6 pt-4 border-t border-white/10 mt-6">
+            <a href="#" className="hover:text-white transition-colors">Términos y Condiciones</a>
+            <a href="#" className="hover:text-white transition-colors">Política de Privacidad</a>
+            <a href="#" className="hover:text-white transition-colors">Contacto</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
