@@ -15,7 +15,7 @@ const Highlight: React.FC<{ children: React.ReactNode; color?: string }> = ({ ch
   <span className={`font-bold ${color}`}>{children}</span>
 );
 
-// Componente de botón adaptado para ser un enlace real compatible con ClickBank
+// Componente de botón adaptado para ser un enlace real
 const ButtonLink: React.FC<{ href: string; className?: string; children: React.ReactNode }> = ({ href, className = "", children }) => (
   <a
     href={href}
@@ -93,15 +93,6 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Efecto para reinicializar los scripts de ClickBank una vez que React ha montado el DOM
-  useEffect(() => {
-    // @ts-ignore
-    if (window.clickbank && typeof window.clickbank.init === 'function') {
-      // @ts-ignore
-      window.clickbank.init();
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-white selection:bg-emeraldGreen/30">
       {/* Barra de Urgencia Superior */}
@@ -148,7 +139,7 @@ export default function App() {
           </p>
         </div>
         
-        <ButtonLink href={paymentLink} className="w-full md:w-auto mb-4">
+        <ButtonLink href="#boton-pago-final" className="w-full md:w-auto mb-4">
           Obtener acceso inmediato por $9,99
         </ButtonLink>
         <p className="text-xs text-gray-400 uppercase tracking-widest mt-4">Pago 100% Seguro vía Clickbank — Encriptación SSL de 256 bits</p>
@@ -233,6 +224,21 @@ export default function App() {
               </ul>
             </div>
           </div>
+        </Section>
+      </div>
+
+      {/* BOTÓN DE PAGO INTERMEDIO (Middle of page) */}
+      <div className="bg-white border-y border-gray-100">
+        <Section className="text-center py-12 md:py-16">
+          <h3 className="text-2xl md:text-3xl font-bold text-deepBlue mb-6 italic">
+            ¿Listo para empezar tu camino hoy mismo?
+          </h3>
+          <ButtonLink href="#boton-pago-final" className="px-12">
+            Sí, quiero mi copia por $9,99
+          </ButtonLink>
+          <p className="text-xs text-gray-400 mt-4 uppercase tracking-widest font-medium">
+            Acceso instantáneo tras el pago
+          </p>
         </Section>
       </div>
 
