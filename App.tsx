@@ -15,13 +15,14 @@ const Highlight: React.FC<{ children: React.ReactNode; color?: string }> = ({ ch
   <span className={`font-bold ${color}`}>{children}</span>
 );
 
-const Button: React.FC<{ onClick?: () => void; className?: string; children: React.ReactNode }> = ({ onClick, className = "", children }) => (
-  <button
-    onClick={onClick}
-    className={`bg-energeticOrange hover:bg-orange-600 text-white font-bold py-5 px-10 rounded-lg shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xl text-center uppercase tracking-wider ${className}`}
+// Componente de botón adaptado para ser un enlace real compatible con ClickBank
+const ButtonLink: React.FC<{ href: string; className?: string; children: React.ReactNode }> = ({ href, className = "", children }) => (
+  <a
+    href={href}
+    className={`inline-block bg-energeticOrange hover:bg-orange-600 text-white font-bold py-5 px-10 rounded-lg shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xl text-center uppercase tracking-wider ${className}`}
   >
     {children}
-  </button>
+  </a>
 );
 
 const Pillar: React.FC<{ number: string; title: string; subtitle: string; points: string[]; result: string }> = ({ number, title, subtitle, points, result }) => (
@@ -85,22 +86,21 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
 
 export default function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const paymentLink = "https://fcofrancis.pay.clickbank.net/?cbitems=5";
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const scrollToPayment = () => {
-    const element = document.getElementById('boton-pago-final');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  // Efecto para reinicializar los scripts de ClickBank una vez que React ha montado el DOM
+  useEffect(() => {
+    // @ts-ignore
+    if (window.clickbank && typeof window.clickbank.init === 'function') {
+      // @ts-ignore
+      window.clickbank.init();
     }
-  };
-
-  const handleFinalPayment = () => {
-    window.location.href = "https://fcofrancis.pay.clickbank.net/?cbitems=5";
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-white selection:bg-emeraldGreen/30">
@@ -148,9 +148,9 @@ export default function App() {
           </p>
         </div>
         
-        <Button onClick={scrollToPayment} className="w-full md:w-auto mb-4">
+        <ButtonLink href={paymentLink} className="w-full md:w-auto mb-4">
           Obtener acceso inmediato por $9,99
-        </Button>
+        </ButtonLink>
         <p className="text-xs text-gray-400 uppercase tracking-widest mt-4">Pago 100% Seguro vía Clickbank — Encriptación SSL de 256 bits</p>
       </Section>
 
@@ -393,12 +393,12 @@ export default function App() {
           </div>
 
           <div id="boton-pago-final">
-            <Button 
-              onClick={handleFinalPayment}
+            <ButtonLink 
+              href={paymentLink}
               className="w-full md:w-auto text-2xl py-6 px-16"
             >
               Obtener "Dominando el Marketing de Afiliados" por $9,99
-            </Button>
+            </ButtonLink>
           </div>
 
           <p className="mt-8 text-sm opacity-50 max-w-2xl mx-auto leading-relaxed">
