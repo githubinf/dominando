@@ -14,7 +14,7 @@ const Highlight: React.FC<{ children: React.ReactNode; color?: string }> = ({ ch
   <span className={`font-bold ${color}`}>{children}</span>
 );
 
-// Componente de botón modificado para ocultar URL al pasar el mouse
+// Componente de botón modificado para ocultar URL al pasar el mouse (usa button en lugar de a)
 const ButtonAction: React.FC<{ onClick?: () => void; className?: string; children: React.ReactNode }> = ({ onClick, className = "", children }) => (
   <button
     onClick={onClick}
@@ -93,7 +93,7 @@ export default function App() {
   }, []);
 
   const scrollToFinal = () => {
-    const element = document.getElementById('boton-pago-final');
+    const element = document.getElementById('seccion-oferta-final');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -376,7 +376,7 @@ export default function App() {
         </div>
       </Section>
 
-      {/* Cierre y CTA Final */}
+      {/* Cierre y CTA Final (Sección de ancla unificada) */}
       <div className="bg-deepBlue py-24 text-white text-center">
         <Section className="max-w-4xl">
           <h2 className="text-4xl md:text-6xl serif-text mb-12 italic leading-tight">
@@ -403,23 +403,26 @@ export default function App() {
             </div>
           </div>
           
-          <div className="mb-12">
-            <p className="text-4xl md:text-5xl font-bold text-energeticOrange mb-2">$9,99</p>
-            <p className="text-lg opacity-60 italic">Único pago. Acceso de por vida.</p>
-          </div>
+          {/* El ancla cubre todo el bloque de precio, botón y aviso de urgencia */}
+          <div id="seccion-oferta-final" className="scroll-mt-24 p-8 rounded-2xl border border-white/5 bg-white/5">
+            <div className="mb-12">
+              <p className="text-5xl md:text-6xl font-bold text-energeticOrange mb-4">$9,99</p>
+              <p className="text-xl opacity-80 italic mb-2">Único pago. Acceso de por vida.</p>
+            </div>
 
-          <div id="boton-pago-final">
-            <ButtonAction 
-              onClick={handlePayment}
-              className="w-full md:w-auto text-2xl py-6 px-16"
-            >
-              Obtener "Dominando el Marketing de Afiliados" por $9,99
-            </ButtonAction>
-          </div>
+            <div className="mb-8">
+              <ButtonAction 
+                onClick={handlePayment}
+                className="w-full md:w-auto text-2xl py-6 px-16"
+              >
+                Obtener "Dominando el Marketing de Afiliados" por $9,99
+              </ButtonAction>
+            </div>
 
-          <p className="mt-8 text-sm opacity-50 max-w-2xl mx-auto leading-relaxed">
-            Una vez alcanzadas las 500 ventas de lanzamiento, el precio regresará a su valor original de $47,00. Asegura tu copia ahora mismo.
-          </p>
+            <p className="text-base md:text-lg opacity-60 max-w-2xl mx-auto leading-relaxed italic">
+              Una vez alcanzadas las 500 ventas de lanzamiento, el precio regresará a su valor original de $47,00. Asegura tu copia ahora mismo.
+            </p>
+          </div>
         </Section>
       </div>
 
@@ -461,19 +464,4 @@ export default function App() {
       </div>
 
       {/* Pie de Página */}
-      <footer className="bg-deepBlue py-12 px-6 text-white/40 text-sm text-center">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <p>© {currentTime.getFullYear()} Dominando el Marketing de Afiliados. Todos los derechos reservados.</p>
-          <p className="italic leading-relaxed">
-            Nota importante: Este libro es una guía educativa. Los resultados individuales varían según dedicación y factores del mercado. No garantizamos ingresos específicos. Todas las estrategias cumplen con normativas legales vigentes.
-          </p>
-          <div className="flex justify-center space-x-6 pt-4 border-t border-white/10 mt-6">
-            <a href="#" className="hover:text-white transition-colors">Términos y Condiciones</a>
-            <a href="#" className="hover:text-white transition-colors">Política de Privacidad</a>
-            <a href="#" className="hover:text-white transition-colors">Contacto</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+      <footer className="bg-deepBlue py-12 px-6 text-white/
