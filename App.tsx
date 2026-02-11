@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 /**
@@ -15,14 +14,14 @@ const Highlight: React.FC<{ children: React.ReactNode; color?: string }> = ({ ch
   <span className={`font-bold ${color}`}>{children}</span>
 );
 
-// Componente de botón adaptado para ser un enlace real
-const ButtonLink: React.FC<{ href: string; className?: string; children: React.ReactNode }> = ({ href, className = "", children }) => (
-  <a
-    href={href}
-    className={`inline-block bg-energeticOrange hover:bg-orange-600 text-white font-bold py-5 px-10 rounded-lg shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xl text-center uppercase tracking-wider ${className}`}
+// Componente de botón modificado para ocultar URL al pasar el mouse
+const ButtonAction: React.FC<{ onClick?: () => void; className?: string; children: React.ReactNode }> = ({ onClick, className = "", children }) => (
+  <button
+    onClick={onClick}
+    className={`inline-block bg-energeticOrange hover:bg-orange-600 text-white font-bold py-5 px-10 rounded-lg shadow-xl transition-all transform hover:scale-105 active:scale-95 text-xl text-center uppercase tracking-wider cursor-pointer border-none outline-none ${className}`}
   >
     {children}
-  </a>
+  </button>
 );
 
 const Pillar: React.FC<{ number: string; title: string; subtitle: string; points: string[]; result: string }> = ({ number, title, subtitle, points, result }) => (
@@ -93,6 +92,17 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  const scrollToFinal = () => {
+    const element = document.getElementById('boton-pago-final');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handlePayment = () => {
+    window.location.href = paymentLink;
+  };
+
   return (
     <div className="min-h-screen bg-white selection:bg-emeraldGreen/30">
       {/* Barra de Urgencia Superior */}
@@ -139,9 +149,9 @@ export default function App() {
           </p>
         </div>
         
-        <ButtonLink href="#boton-pago-final" className="w-full md:w-auto mb-4">
+        <ButtonAction onClick={scrollToFinal} className="w-full md:w-auto mb-4">
           Obtener acceso inmediato por $9,99
-        </ButtonLink>
+        </ButtonAction>
         <p className="text-xs text-gray-400 uppercase tracking-widest mt-4">Pago 100% Seguro vía Clickbank — Encriptación SSL de 256 bits</p>
       </Section>
 
@@ -233,9 +243,9 @@ export default function App() {
           <h3 className="text-2xl md:text-3xl font-bold text-deepBlue mb-6 italic">
             ¿Listo para empezar tu camino hoy mismo?
           </h3>
-          <ButtonLink href="#boton-pago-final" className="px-12">
+          <ButtonAction onClick={scrollToFinal} className="px-12">
             Sí, quiero mi copia por $9,99
-          </ButtonLink>
+          </ButtonAction>
           <p className="text-xs text-gray-400 mt-4 uppercase tracking-widest font-medium">
             Acceso instantáneo tras el pago
           </p>
@@ -399,12 +409,12 @@ export default function App() {
           </div>
 
           <div id="boton-pago-final">
-            <ButtonLink 
-              href={paymentLink}
+            <ButtonAction 
+              onClick={handlePayment}
               className="w-full md:w-auto text-2xl py-6 px-16"
             >
               Obtener "Dominando el Marketing de Afiliados" por $9,99
-            </ButtonLink>
+            </ButtonAction>
           </div>
 
           <p className="mt-8 text-sm opacity-50 max-w-2xl mx-auto leading-relaxed">
