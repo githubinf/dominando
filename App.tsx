@@ -457,10 +457,6 @@ export default function App() {
               "Tu futuro como profesional ético empieza con un solo clic."
             </p>
           </div>
-          <div className="mt-12">
-            <p className="font-bold text-deepBlue">Francisco González</p>
-            <p className="text-sm text-gray-500 uppercase tracking-widest">Autor de "Dominando el Marketing de Afiliados"</p>
-          </div>
         </Section>
       </div>
 
@@ -471,11 +467,6 @@ export default function App() {
           <p className="italic leading-relaxed">
             Nota importante: Este libro es una guía educativa. Los resultados individuales varían según dedicación y factores del mercado. No garantizamos ingresos específicos. Todas las estrategias cumplen con normativas legales vigentes.
           </p>
-          <div className="flex justify-center space-x-6 pt-4 border-t border-white/10 mt-6">
-            <a href="#" className="hover:text-white transition-colors">Términos y Condiciones</a>
-            <a href="#" className="hover:text-white transition-colors">Política de Privacidad</a>
-            <a href="#" className="hover:text-white transition-colors">Contacto</a>
-          </div>
         </div>
       </footer>
     </div>
