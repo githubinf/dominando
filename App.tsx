@@ -456,6 +456,11 @@ export default function App() {
             <p className="font-bold italic text-deepBlue text-2xl text-center mt-12 mb-12">
               "Tu futuro como profesional ético empieza con un solo clic."
             </p>
+            <div className="text-center">
+              <ButtonAction onClick={scrollToFinal} className="w-full md:w-auto">
+                ¡Sí! Quiero empezar mi negocio hoy mismo
+              </ButtonAction>
+            </div>
           </div>
         </Section>
       </div>
